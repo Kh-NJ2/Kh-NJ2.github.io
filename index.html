@@ -370,7 +370,6 @@
     let lastWalkUpdate = 0;
     const walkInterval = 150;
 
-    // --- Values that depend on layout ---
     const baseSpeed = 2;
     const catSize = cat.offsetWidth;
     const ballSize = ball.offsetHeight;
@@ -378,8 +377,7 @@
     const boostDuration = 500;
     const maxSpeed = baseSpeed * 4;
     const ballRotationSpeed = 10;
-
-    // Declare variables but don't assign "rect" values yet
+    
     let x, y, ball_x, ball_y, rect;
     let direction = 'right';
     let rotation = 0;
@@ -398,9 +396,8 @@
     let lastBallBoost = 0;
     let lastJump = 0;
 
-    // --- Initialization Function ---
     function init() {
-        // Force scroll to top to ensure coordinates are consistent
+        // Force scroll
         window.scrollTo(0, 0);
         
         // Get fresh coordinates
