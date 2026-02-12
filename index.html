@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>Kh_Nadine | Portfolio</title>
+    <style>
+        body {
+            background: #ffe0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #cat, #ball {
+            position: absolute;
+            opacity: 0; 
+            transition: opacity 1s ease; 
+        }
+
+        #cat {
+            position: absolute;
+            width: 64px; 
+            height: 64px;
+            transition: transform ease-in-out;
+            transform-origin: center center;
+            z-index: 50;
+            image-rendering: pixelated;
+            pointer-events: none;
+        }
+
+        #ball {
+            position: absolute;
+            width: 25px; 
+            height: 25px;
+            transition: transform 0.6s ease-in-out;
+            transform-origin: center center;
+            z-index: 40;
+            image-rendering: pixelated;
+            pointer-events: none;
+        }
+
+        .intro-box {
+            height: 450px;
+            width: calc(100% - 200px);
+            border: 4px solid #b77488;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            background: #ffb3d9;
+            margin: 100px;
+    
+        }
+
+        .intro {
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .intro h1 {
+            font-family: 'VT323', monospace;
+            font-size: 5rem;
+            color: #b77488;
+            text-shadow: 3px 3px 0px white;
+            margin: 0;
+        }
+
+        .intro h2 {
+            margin: 15px auto;
+            font-size: 1.15rem;
+            text-align: center;
+            color: #8a5666;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .section-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .pixel-card {
+            background: white;
+            border: 3px solid #ffb3d9;
+            border-radius: 15px;
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .pixel-card:hover {
+            border-color: #b77488;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(183, 116, 136, 0.15);
+        }
+
+        .section-title {
+            font-family: 'VT323', monospace;
+            font-size: 3rem;
+            color: #b77488;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #ffb3d9;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(183, 116, 136, 0.2);
+            border-color: #b77488;
+        }
+
+        .tag {
+            background: #ffe0f0;
+            color: #b77488;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            padding: 4rem 1rem;
+            background-color: #fef4f9;
+            border-top: 4px solid #ffb3d9;
+            margin-top: 80px;
+        }
+
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #b77488;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .link-gmail:hover { color: #EA4335; }
+        .link-linkedin:hover { color: #0077B5; }
+        .link-github:hover { color: #000000; }
+        .link-phone:hover { color: #0e6c6d;}
+
+    </style>
+</head>
+<body>
+
+    <!-- Animation Elements -->
+    <img src="imgs/1.png" id="cat" alt="Pixel Cat">
+    <img src="imgs/wr.png" id="ball" alt="Yarn Ball">
+    
+    <!-- Header / About Me Section -->
+    <div class="intro-box" id="boundary">
+        <div class="intro">
+            <h1>Nadine Khattab</h1>
+            <h2>I'm a Computer Science student at AAST with a deep facination for finding patterns in complex data. I build models that predict, classify, and recommend, and love turning raw data into actionable insights. To make sure my models actually work in the real world, I use my AWS Cloud experience to build serverless pipelines that scale effortlessly.</h2>
+            <div class="flex flex-col items-center gap-3 mt-6">
+                <div class="flex justify-center gap-3 flex-wrap">
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Data Science</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Machine Learning</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Predictive Modeling</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">AWS Cloud Engineering</span>
+                    
+                </div>
+                <div class="flex justify-center gap-3 flex-wrap">
+                    <span class="bg-white/50 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666]">📍Egypt</span>
+                    <span class="bg-white/50 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666]">🎓 Expected 2026</span>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills & Education Section -->
+    <div class="section-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Education Card -->
+            <div class="pixel-card">
+                <h3 class="font-['VT323'] text-3xl text-[#b77488] mb-4">Education</h3>
+                <p class="font-bold text-gray-800 text-lg">B.Sc. in Computer Science</p>
+                <p class="text-[#8a5666] mb-4">Arab Academy For Science And Technology</p>
+                <div class="border-t border-[#ffe0f0] pt-4">
+                    <p class="text-xs font-bold text-[#b77488] uppercase tracking-wider mb-2">Relevant Coursework</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Networks</span>
+                        <span class="tag">Operating Systems</span>
+                        <span class="tag">Web Dev</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Card -->
+            <div class="pixel-card">
+                <h3 class="font-['VT323'] text-3xl text-[#b77488] mb-4">Tech Skills</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Languages</p>
+                        <p class="text-xs text-gray-700">Python, Java, Kotlin, C, SQL</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">ML / AI</p>
+                        <p class="text-xs text-gray-700">TensorFlow, Scikit-learn, RAG</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Cloud</p>
+                        <p class="text-xs text-gray-700">AWS Lambda, S3, DynamoDB</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Dev Tools</p>
+                        <p class="text-xs text-gray-700">Linux, Git, VS Code, Jupyter</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section-container">
+        <h2 class="section-title">Latest Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- AI Resume Ranker -->
+            <div class="project-card">
+                <div class="h-32 bg-[#b77488] flex items-center justify-center p-4">
+                    <span class="text-white text-3xl font-['VT323'] text-center">AI RESUME RANKER</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">AWS Lambda</span>
+                        <span class="tag">NLP</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Architected a serverless NLP pipeline using Amazon Comprehend to automate resume keyword analysis and ranking.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <span class="text-xs font-bold text-pink-400">AWS Cloud AI Project</span>
+                </div>
+            </div>
+
+            <!-- RAG Chatbot -->
+            <div class="project-card">
+                <div class="h-32 bg-[#ffb3d9] flex items-center justify-center p-4">
+                    <span class="text-white text-3xl font-['VT323'] text-center">RAG PIPELINE</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">ChromaDB</span>
+                        <span class="tag">Vector Search</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Built a Retrieval-Augmented Generation system using vector embeddings for semantic, context-aware AI interactions.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="https://github.com/Kh-NJ2/RAGBot" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View Source →</a>
+                </div>
+            </div>
+
+            <!-- Walmart Sales Forecast -->
+            <div class="project-card">
+                <div class="h-32 bg-[#b77488] flex items-center justify-center p-4">
+                    <span class="text-white text-3xl font-['VT323'] text-center">SALES FORECAST</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">LightGBM</span>
+                        <span class="tag">Time Series</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Engineered time-series lag and rolling average features to forecast weekly sales with high precision.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="https://github.com/Kh-NJ2/Walmart-Sales-Forecast" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View Source →</a>
+                </div>
+            </div>
+
+            <!-- Traffic Sign Recognition -->
+            <div class="project-card">
+                <div class="h-32 bg-[#ffb3d9] flex items-center justify-center p-4">
+                    <span class="text-white text-3xl font-['VT323'] text-center">TRAFFIC VISION</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">CNN</span>
+                        <span class="tag">Computer Vision</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Trained a CNN model on the GTSRB dataset with data augmentation for robust real-world image classification.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="https://github.com/Kh-NJ2/Traffic-Sign-Recognition" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View Source →</a>
+                </div>
+            </div>
+
+            <!-- Movie Recommendation -->
+            <div class="project-card">
+                <div class="h-32 bg-[#ffe0f0] flex items-center justify-center p-4">
+                    <span class="text-[#b77488] text-3xl font-['VT323'] text-center">MOVIE RECOMMENDATION SYSTEM</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">Collaborative Filtering</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Developed user-based and item-based collaborative filtering engines to recommend content via rating behaviors.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="https://github.com/Kh-NJ2/Movie-Recommendation-System" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View Source →</a>
+                </div>
+            </div>
+
+            <!-- Loan Approval Prediction -->
+            <div class="project-card">
+                <div class="h-32 bg-[#ffb3d9] flex items-center justify-center p-4">
+                    <span class="text-white text-3xl font-['VT323'] text-center">LOAN APPROVAL PREDICTOR</span>
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex gap-2 mb-3">
+                        <span class="tag">SMOTE</span>
+                        <span class="tag">Binary Classification</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">Handled class imbalance with SMOTE to train high-accuracy predictive models for financial loan risk assessment.</p>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="https://github.com/Kh-NJ2/Loan-Approval-Prediction-Model" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View Source →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="font-bold text-[#b77488] mb-10 text-3xl font-['VT323'] tracking-wider">Let's build something together</p>
+            <ul class="footer-links flex flex-wrap justify-center gap-10 list-none p-0">
+                <li><a href="mailto:kh.nadine.x@gmail.com" class="link-gmail">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Gmail</a></li>
+                
+                <li><a href="https://www.linkedin.com/in/nadine-kh/" target="_blank" class="link-linkedin">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>LinkedIn</a></li>    
+
+                <li><a href="https://github.com/Kh-NJ2" target="_blank" class="link-github">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg> GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+    const cat = document.getElementById('cat');
+    const ball = document.getElementById('ball');
+    const container = document.querySelector('.intro-box');
+
+    const walkFrames = ['imgs/1.png', 'imgs/2.png', 'imgs/3.png', 'imgs/4.png'];
+    const jumpFrames = ['imgs/j1.png', 'imgs/j2.png', 'imgs/j3.png'];
+    const turnFrame = 'imgs/5.png';
+
+    let currentFrame = 0;
+    let isTurning = false;
+    let lastWalkUpdate = 0;
+    const walkInterval = 150;
+
+    // --- Values that depend on layout ---
+    const baseSpeed = 2;
+    const catSize = cat.offsetWidth;
+    const ballSize = ball.offsetHeight;
+    const buffer = 5;
+    const boostDuration = 500;
+    const maxSpeed = baseSpeed * 4;
+    const ballRotationSpeed = 10;
+
+    // Declare variables but don't assign "rect" values yet
+    let x, y, ball_x, ball_y, rect;
+    let direction = 'right';
+    let rotation = 0;
+    let catSpeed = baseSpeed;
+    let xOffset = 0;
+    let yOffset = 0;
+    let ball_direction = 'right';
+    let ball_rotation = 0;
+    let ballSpeed = baseSpeed;
+
+    let isCatBoosting = false;
+    let catBoostStartTime = 0;
+    let isBallBoosting = false;
+    let ballBoostStartTime = 0;
+    let lastCatBoost = 0;
+    let lastBallBoost = 0;
+    let lastJump = 0;
+
+    // --- Initialization Function ---
+    function init() {
+        // Force scroll to top to ensure coordinates are consistent
+        window.scrollTo(0, 0);
+        
+        // Get fresh coordinates
+        rect = container.getBoundingClientRect();
+
+        // Setting positions
+        x = rect.left;
+        y = rect.top - catSize + 1;
+        
+        ball_x = rect.left + (catSize * 1.5);
+        ball_y = rect.top - ballSize + 2;
+
+        // Apply initial styles
+        cat.style.left = x + 'px';
+        cat.style.top = y + 'px';
+        cat.style.transform = `rotate(${rotation}deg)`;
+        ball.style.left = ball_x + 'px';
+        ball.style.top = ball_y + 'px';
+        ball.style.transform = `rotate(${ball_rotation}deg)`;
+        
+        cat.style.opacity = "1";
+        ball.style.opacity = "1";
+
+        // Start the loop
+        requestAnimationFrame(animate);
+    }
+
+    function calculateBoost(startTime, currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / boostDuration, 1);
+        return 4 * progress * (1 - progress); 
+    }
+
+    function animate(currentTime) {
+        if (!isTurning && currentTime - lastWalkUpdate >= walkInterval) {
+            currentFrame = (currentFrame + 1) % walkFrames.length;
+            cat.src = walkFrames[currentFrame];
+            lastWalkUpdate = currentTime;
+        }
+
+        if (!isCatBoosting && currentTime - lastCatBoost >= 4000) {
+            isCatBoosting = true;
+            catBoostStartTime = currentTime;
+            lastCatBoost = currentTime;
+        }
+
+        if (!isBallBoosting && currentTime - lastBallBoost >= 3400) {
+            isBallBoosting = true;
+            ballBoostStartTime = currentTime;
+            lastBallBoost = currentTime;
+        }
+
+        if (!isTurning && currentTime - lastJump >= 4000) {
+            lastJump = currentTime;
+            performJump(currentTime);
+        }
+
+        if (isCatBoosting) {
+            const curve = calculateBoost(catBoostStartTime, currentTime);
+            catSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
+            if (currentTime - catBoostStartTime >= boostDuration) {
+                isCatBoosting = false;
+                catSpeed = baseSpeed;
+            }
+        }
+
+        if (isBallBoosting) {
+            const curve = calculateBoost(ballBoostStartTime, currentTime);
+            ballSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
+            if (currentTime - ballBoostStartTime >= boostDuration) {
+                isBallBoosting = false;
+                ballSpeed = baseSpeed;
+            }
+        }
+
+        moveCat();
+        moveBall();
+        requestAnimationFrame(animate);
+    }
+
+    let jumpStartTime = 0;
+    let isJumping = false;
+    const jumpDuration = 400;
+
+    function performJump(startTime) {
+        if (isTurning) return;
+        isJumping = true;
+        jumpStartTime = startTime;
+    }
+
+    function updateJump(currentTime) {
+        if (!isJumping) return;
+        const elapsed = currentTime - jumpStartTime;
+        const progress = Math.min(elapsed / jumpDuration, 1);
+        const jumpCurve = 4 * progress * (1 - progress);
+
+        let jumpHeight = 0;
+        let jumpAxis = 'y';
+
+        switch (direction) {
+            case 'up': jumpAxis = 'x'; jumpHeight = -30; break;
+            case 'down': jumpAxis = 'x'; jumpHeight = 30; break;
+            case 'left': jumpAxis = 'y'; jumpHeight = 30; break;
+            case 'right': jumpAxis = 'y'; jumpHeight = -30; break;
+        }
+
+        const offset = jumpHeight * jumpCurve;
+        if (jumpAxis === 'y') {
+            yOffset = offset;
+            xOffset = 0;
+        } else {
+            xOffset = offset;
+            yOffset = 0;
+        }
+
+        const frameIndex = progress < 0.33 ? 0 : progress < 0.66 ? 1 : 2;
+        cat.src = jumpFrames[frameIndex];
+
+        if (progress >= 1) {
+            isJumping = false;
+            xOffset = 0;
+            yOffset = 0;
+        }
+    }
+
+    function moveCat() {
+        if (isJumping) updateJump(performance.now());
+
+        let potentialX = x;
+        let potentialY = y;
+
+        const movements = {
+            right: [catSpeed, 0],
+            down: [0, catSpeed],
+            left: [-catSpeed, 0],
+            up: [0, -catSpeed]
+        };
+        const [dx, dy] = movements[direction];
+        potentialX += dx;
+        potentialY += dy;
+
+        const catRight = potentialX + catSize;
+        const catBottom = potentialY + catSize;
+        const ballRight = ball_x + ballSize;
+        const ballBottom = ball_y + ballSize;
+
+        const isColliding =
+            potentialX < ballRight - buffer &&
+            catRight > ball_x + buffer &&
+            potentialY < ballBottom - buffer &&
+            catBottom > ball_y + buffer;
+
+        if (!isColliding) {
+            x = potentialX;
+            y = potentialY;
+        }
+
+        checkWalls();
+        cat.style.left = (x + xOffset) + 'px';
+        cat.style.top = (y + yOffset) + 'px';
+    }
+
+    function checkWalls() {
+        const walls = {
+            right: [rect.right - 30, rect.right - 2, 'down'],
+            down: [rect.bottom - 20, rect.bottom - 2, 'left'],
+            left: [rect.left - (catSize / 2), rect.left - catSize + 2, 'up'],
+            up: [rect.top - (catSize / 2), rect.top - catSize + 2, 'right']
+        };
+
+        const check = walls[direction];
+        if (!check) return;
+
+        const [threshold, snapPos, nextDir] = check;
+        const pos = direction === 'right' || direction === 'left' ? x : y;
+        const isAtWall = direction === 'right' || direction === 'down' ? pos >= threshold : pos <= threshold;
+
+        if (isAtWall) {
+            if (direction === 'right' || direction === 'left') x = snapPos;
+            else y = snapPos;
+            
+            direction = nextDir;
+            rotation += 90;
+            isTurning = true;
+            cat.src = turnFrame;
+            cat.style.transform = `rotate(${rotation}deg)`;
+            setTimeout(() => { isTurning = false; }, 350);
+        }
+    }
+
+    function moveBall() {
+        switch (ball_direction) {
+            case 'right':
+                ball_x += ballSpeed;
+                if (ball_x >= rect.right - 10) {
+                    ball_x = rect.right;
+                    ball_direction = 'down';
+                }
+                break;
+            case 'down':
+                ball_y += ballSpeed;
+                if (ball_y >= rect.bottom) {
+                    ball_y = rect.bottom - 2;
+                    ball_direction = 'left';
+                }
+                break;
+            case 'left':
+                ball_x -= ballSpeed;
+                if (ball_x <= rect.left + 5) {
+                    ball_x = rect.left - ballSize;
+                    ball_direction = 'up';
+                }
+                break;
+            case 'up':
+                ball_y -= ballSpeed;
+                if (ball_y <= rect.top - ballSize) {
+                    ball_y = rect.top - ballSize;
+                    ball_direction = 'right';
+                }
+                break;
+        }
+
+        const currentRotationSpeed = ballRotationSpeed * (ballSpeed / baseSpeed);
+        ball_rotation += currentRotationSpeed;
+        
+        ball.style.left = ball_x + 'px';
+        ball.style.top = ball_y + 'px';
+        ball.style.transform = `rotate(${ball_rotation}deg)`;
+    }
+
+    // Run the initialization when everything is loaded
+    window.onload = init;
+    </script> 
+</body>
+</html>
