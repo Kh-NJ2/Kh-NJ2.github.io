@@ -357,282 +357,294 @@
     </footer>
 
     <script>
-    const cat = document.getElementById('cat');
-    const ball = document.getElementById('ball');
-    const container = document.querySelector('.intro-box');
+        const cat = document.getElementById('cat');
+        const ball = document.getElementById('ball');
+        const container = document.querySelector('.intro-box');
 
-    const walkFrames = ['imgs/1.png', 'imgs/2.png', 'imgs/3.png', 'imgs/4.png'];
-    const jumpFrames = ['imgs/j1.png', 'imgs/j2.png', 'imgs/j3.png'];
-    const turnFrame = 'imgs/5.png';
+        const walkFrames = ['imgs/1.png', 'imgs/2.png', 'imgs/3.png', 'imgs/4.png'];
+        const jumpFrames = ['imgs/j1.png', 'imgs/j2.png', 'imgs/j3.png'];
+        const turnFrame = 'imgs/5.png';
 
-    let currentFrame = 0;
-    let isTurning = false;
-    let lastWalkUpdate = 0;
-    const walkInterval = 150;
+        const allFramePaths = [...walkFrames, ...jumpFrames, turnFrame];
+        const preloadedImages = {};
 
-    // --- Values that depend on layout ---
-    const baseSpeed = 2;
-    const catSize = cat.offsetWidth;
-    const ballSize = ball.offsetHeight;
-    const buffer = 5;
-    const boostDuration = 500;
-    const maxSpeed = baseSpeed * 4;
-    const ballRotationSpeed = 10;
-
-    // Declare variables but don't assign "rect" values yet
-    let x, y, ball_x, ball_y, rect;
-    let direction = 'right';
-    let rotation = 0;
-    let catSpeed = baseSpeed;
-    let xOffset = 0;
-    let yOffset = 0;
-    let ball_direction = 'right';
-    let ball_rotation = 0;
-    let ballSpeed = baseSpeed;
-
-    let isCatBoosting = false;
-    let catBoostStartTime = 0;
-    let isBallBoosting = false;
-    let ballBoostStartTime = 0;
-    let lastCatBoost = 0;
-    let lastBallBoost = 0;
-    let lastJump = 0;
-
-    // --- Initialization Function ---
-    function init() {
-        // Force scroll to top to ensure coordinates are consistent
-        window.scrollTo(0, 0);
-        
-        // Get fresh coordinates
-        rect = container.getBoundingClientRect();
-
-        // Setting positions
-        x = rect.left;
-        y = rect.top - catSize + 1;
-        
-        ball_x = rect.left + (catSize * 1.5);
-        ball_y = rect.top - ballSize + 2;
-
-        // Apply initial styles
-        cat.style.left = x + 'px';
-        cat.style.top = y + 'px';
-        cat.style.transform = `rotate(${rotation}deg)`;
-        ball.style.left = ball_x + 'px';
-        ball.style.top = ball_y + 'px';
-        ball.style.transform = `rotate(${ball_rotation}deg)`;
-        
-        cat.style.opacity = "1";
-        ball.style.opacity = "1";
-
-        // Start the loop
-        requestAnimationFrame(animate);
-    }
-
-    function calculateBoost(startTime, currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / boostDuration, 1);
-        return 4 * progress * (1 - progress); 
-    }
-
-    function animate(currentTime) {
-        if (!isTurning && currentTime - lastWalkUpdate >= walkInterval) {
-            currentFrame = (currentFrame + 1) % walkFrames.length;
-            cat.src = walkFrames[currentFrame];
-            lastWalkUpdate = currentTime;
+        function preloadAll(callback) {
+            let loadedCount = 0;
+            allFramePaths.forEach(path => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === allFramePaths.length) callback();
+                };
+                img.onerror = () => {
+                    console.error("Failed to load image at: " + path);
+                    loadedCount++; 
+                };
+                img.src = path;
+                preloadedImages[path] = img;
+            });
         }
 
-        if (!isCatBoosting && currentTime - lastCatBoost >= 4000) {
-            isCatBoosting = true;
-            catBoostStartTime = currentTime;
-            lastCatBoost = currentTime;
-        }
+        let currentFrame = 0;
+        let isTurning = false;
+        let lastWalkUpdate = 0;
+        const walkInterval = 150;
 
-        if (!isBallBoosting && currentTime - lastBallBoost >= 3400) {
-            isBallBoosting = true;
-            ballBoostStartTime = currentTime;
-            lastBallBoost = currentTime;
-        }
+        const baseSpeed = 2;
+        const catSize = 64;
+        const ballSize = 25;
+        const buffer = 5;
+        const boostDuration = 500;
+        const maxSpeed = baseSpeed * 4;
+        const ballRotationSpeed = 10;
 
-        if (!isTurning && currentTime - lastJump >= 4000) {
-            lastJump = currentTime;
-            performJump(currentTime);
-        }
+        let x, y, ball_x, ball_y, rect;
+        let direction = 'right';
+        let rotation = 0;
+        let catSpeed = baseSpeed;
+        let xOffset = 0;
+        let yOffset = 0;
+        let ball_direction = 'right';
+        let ball_rotation = 0;
+        let ballSpeed = baseSpeed;
 
-        if (isCatBoosting) {
-            const curve = calculateBoost(catBoostStartTime, currentTime);
-            catSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
-            if (currentTime - catBoostStartTime >= boostDuration) {
-                isCatBoosting = false;
-                catSpeed = baseSpeed;
-            }
-        }
+        let isCatBoosting = false;
+        let catBoostStartTime = 0;
+        let isBallBoosting = false;
+        let ballBoostStartTime = 0;
+        let lastCatBoost = 0;
+        let lastBallBoost = 0;
+        let lastJump = 0;
 
-        if (isBallBoosting) {
-            const curve = calculateBoost(ballBoostStartTime, currentTime);
-            ballSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
-            if (currentTime - ballBoostStartTime >= boostDuration) {
-                isBallBoosting = false;
-                ballSpeed = baseSpeed;
-            }
-        }
+        function init() {
+            rect = container.getBoundingClientRect();
 
-        moveCat();
-        moveBall();
-        requestAnimationFrame(animate);
-    }
-
-    let jumpStartTime = 0;
-    let isJumping = false;
-    const jumpDuration = 400;
-
-    function performJump(startTime) {
-        if (isTurning) return;
-        isJumping = true;
-        jumpStartTime = startTime;
-    }
-
-    function updateJump(currentTime) {
-        if (!isJumping) return;
-        const elapsed = currentTime - jumpStartTime;
-        const progress = Math.min(elapsed / jumpDuration, 1);
-        const jumpCurve = 4 * progress * (1 - progress);
-
-        let jumpHeight = 0;
-        let jumpAxis = 'y';
-
-        switch (direction) {
-            case 'up': jumpAxis = 'x'; jumpHeight = -30; break;
-            case 'down': jumpAxis = 'x'; jumpHeight = 30; break;
-            case 'left': jumpAxis = 'y'; jumpHeight = 30; break;
-            case 'right': jumpAxis = 'y'; jumpHeight = -30; break;
-        }
-
-        const offset = jumpHeight * jumpCurve;
-        if (jumpAxis === 'y') {
-            yOffset = offset;
-            xOffset = 0;
-        } else {
-            xOffset = offset;
-            yOffset = 0;
-        }
-
-        const frameIndex = progress < 0.33 ? 0 : progress < 0.66 ? 1 : 2;
-        cat.src = jumpFrames[frameIndex];
-
-        if (progress >= 1) {
-            isJumping = false;
-            xOffset = 0;
-            yOffset = 0;
-        }
-    }
-
-    function moveCat() {
-        if (isJumping) updateJump(performance.now());
-
-        let potentialX = x;
-        let potentialY = y;
-
-        const movements = {
-            right: [catSpeed, 0],
-            down: [0, catSpeed],
-            left: [-catSpeed, 0],
-            up: [0, -catSpeed]
-        };
-        const [dx, dy] = movements[direction];
-        potentialX += dx;
-        potentialY += dy;
-
-        const catRight = potentialX + catSize;
-        const catBottom = potentialY + catSize;
-        const ballRight = ball_x + ballSize;
-        const ballBottom = ball_y + ballSize;
-
-        const isColliding =
-            potentialX < ballRight - buffer &&
-            catRight > ball_x + buffer &&
-            potentialY < ballBottom - buffer &&
-            catBottom > ball_y + buffer;
-
-        if (!isColliding) {
-            x = potentialX;
-            y = potentialY;
-        }
-
-        checkWalls();
-        cat.style.left = (x + xOffset) + 'px';
-        cat.style.top = (y + yOffset) + 'px';
-    }
-
-    function checkWalls() {
-        const walls = {
-            right: [rect.right - 30, rect.right - 2, 'down'],
-            down: [rect.bottom - 20, rect.bottom - 2, 'left'],
-            left: [rect.left - (catSize / 2), rect.left - catSize + 2, 'up'],
-            up: [rect.top - (catSize / 2), rect.top - catSize + 2, 'right']
-        };
-
-        const check = walls[direction];
-        if (!check) return;
-
-        const [threshold, snapPos, nextDir] = check;
-        const pos = direction === 'right' || direction === 'left' ? x : y;
-        const isAtWall = direction === 'right' || direction === 'down' ? pos >= threshold : pos <= threshold;
-
-        if (isAtWall) {
-            if (direction === 'right' || direction === 'left') x = snapPos;
-            else y = snapPos;
+            const scrollY = window.scrollY;
+            x = rect.left;
+            y = rect.top + scrollY - catSize + 1;
             
-            direction = nextDir;
-            rotation += 90;
-            isTurning = true;
-            cat.src = turnFrame;
-            cat.style.transform = `rotate(${rotation}deg)`;
-            setTimeout(() => { isTurning = false; }, 350);
-        }
-    }
+            ball_x = rect.left + (catSize * 1.5);
+            ball_y = rect.top + scrollY - ballSize + 2;
 
-    function moveBall() {
-        switch (ball_direction) {
-            case 'right':
-                ball_x += ballSpeed;
-                if (ball_x >= rect.right - 10) {
-                    ball_x = rect.right;
-                    ball_direction = 'down';
-                }
-                break;
-            case 'down':
-                ball_y += ballSpeed;
-                if (ball_y >= rect.bottom) {
-                    ball_y = rect.bottom - 2;
-                    ball_direction = 'left';
-                }
-                break;
-            case 'left':
-                ball_x -= ballSpeed;
-                if (ball_x <= rect.left + 5) {
-                    ball_x = rect.left - ballSize;
-                    ball_direction = 'up';
-                }
-                break;
-            case 'up':
-                ball_y -= ballSpeed;
-                if (ball_y <= rect.top - ballSize) {
-                    ball_y = rect.top - ballSize;
-                    ball_direction = 'right';
-                }
-                break;
+            cat.style.left = x + 'px';
+            cat.style.top = y + 'px';
+            cat.style.opacity = "1";
+            ball.style.opacity = "1";
+
+            requestAnimationFrame(animate);
         }
 
-        const currentRotationSpeed = ballRotationSpeed * (ballSpeed / baseSpeed);
-        ball_rotation += currentRotationSpeed;
-        
-        ball.style.left = ball_x + 'px';
-        ball.style.top = ball_y + 'px';
-        ball.style.transform = `rotate(${ball_rotation}deg)`;
-    }
+        function calculateBoost(startTime, currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / boostDuration, 1);
+            return 4 * progress * (1 - progress); 
+        }
 
-    // Run the initialization when everything is loaded
-    window.onload = init;
+        function animate(currentTime) {
+
+            if (!isTurning && currentTime - lastWalkUpdate >= walkInterval) {
+                currentFrame = (currentFrame + 1) % walkFrames.length;
+                cat.src = walkFrames[currentFrame]; 
+                lastWalkUpdate = currentTime;
+            }
+
+            if (!isCatBoosting && currentTime - lastCatBoost >= 4000) {
+                isCatBoosting = true;
+                catBoostStartTime = currentTime;
+                lastCatBoost = currentTime;
+            }
+
+            if (!isBallBoosting && currentTime - lastBallBoost >= 3400) {
+                isBallBoosting = true;
+                ballBoostStartTime = currentTime;
+                lastBallBoost = currentTime;
+            }
+
+            if (!isTurning && currentTime - lastJump >= 4000) {
+                lastJump = currentTime;
+                performJump(currentTime);
+            }
+
+            if (isCatBoosting) {
+                const curve = calculateBoost(catBoostStartTime, currentTime);
+                catSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
+                if (currentTime - catBoostStartTime >= boostDuration) {
+                    isCatBoosting = false;
+                    catSpeed = baseSpeed;
+                }
+            }
+
+            if (isBallBoosting) {
+                const curve = calculateBoost(ballBoostStartTime, currentTime);
+                ballSpeed = baseSpeed + (maxSpeed - baseSpeed) * curve;
+                if (currentTime - ballBoostStartTime >= boostDuration) {
+                    isBallBoosting = false;
+                    ballSpeed = baseSpeed;
+                }
+            }
+
+            moveCat();
+            moveBall();
+            requestAnimationFrame(animate);
+        }
+
+        let jumpStartTime = 0;
+        let isJumping = false;
+        const jumpDuration = 400;
+
+        function performJump(startTime) {
+            if (isTurning) return;
+            isJumping = true;
+            jumpStartTime = startTime;
+        }
+
+        function updateJump(currentTime) {
+            if (!isJumping) return;
+            const elapsed = currentTime - jumpStartTime;
+            const progress = Math.min(elapsed / jumpDuration, 1);
+            const jumpCurve = 4 * progress * (1 - progress);
+
+            let jumpHeight = 0;
+            let jumpAxis = 'y';
+
+            switch (direction) {
+                case 'up': jumpAxis = 'x'; jumpHeight = -30; break;
+                case 'down': jumpAxis = 'x'; jumpHeight = 30; break;
+                case 'left': jumpAxis = 'y'; jumpHeight = 30; break;
+                case 'right': jumpAxis = 'y'; jumpHeight = -30; break;
+            }
+
+            const offset = jumpHeight * jumpCurve;
+            if (jumpAxis === 'y') {
+                yOffset = offset;
+                xOffset = 0;
+            } else {
+                xOffset = offset;
+                yOffset = 0;
+            }
+
+            const frameIndex = progress < 0.33 ? 0 : progress < 0.66 ? 1 : 2;
+            cat.src = jumpFrames[frameIndex];
+
+            if (progress >= 1) {
+                isJumping = false;
+                xOffset = 0;
+                yOffset = 0;
+            }
+        }
+
+        function moveCat() {
+            if (isJumping) updateJump(performance.now());
+
+            let potentialX = x;
+            let potentialY = y;
+
+            const movements = {
+                right: [catSpeed, 0],
+                down: [0, catSpeed],
+                left: [-catSpeed, 0],
+                up: [0, -catSpeed]
+            };
+            const [dx, dy] = movements[direction];
+            potentialX += dx;
+            potentialY += dy;
+
+            const catRight = potentialX + catSize;
+            const catBottom = potentialY + catSize;
+            const ballRight = ball_x + ballSize;
+            const ballBottom = ball_y + ballSize;
+
+            const isColliding =
+                potentialX < ballRight - buffer &&
+                catRight > ball_x + buffer &&
+                potentialY < ballBottom - buffer &&
+                catBottom > ball_y + buffer;
+
+            if (!isColliding) {
+                x = potentialX;
+                y = potentialY;
+            }
+
+            checkWalls();
+            cat.style.left = (x + xOffset) + 'px';
+            cat.style.top = (y + yOffset) + 'px';
+        }
+
+        function checkWalls() {
+            const walls = {
+                right: [rect.right - 30, rect.right - 2, 'down'],
+                down: [rect.bottom - 20, rect.bottom - 2, 'left'],
+                left: [rect.left - (catSize / 2), rect.left - catSize + 2, 'up'],
+                up: [rect.top - (catSize / 2), rect.top - catSize + 2, 'right']
+            };
+
+            const check = walls[direction];
+            if (!check) return;
+
+            const [threshold, snapPos, nextDir] = check;
+            const pos = direction === 'right' || direction === 'left' ? x : y;
+            const isAtWall = direction === 'right' || direction === 'down' ? pos >= threshold : pos <= threshold;
+
+            if (isAtWall) {
+                if (direction === 'right' || direction === 'left') x = snapPos;
+                else y = snapPos;
+                
+                direction = nextDir;
+                rotation += 90;
+                isTurning = true;
+                cat.src = turnFrame;
+                cat.style.transform = `rotate(${rotation}deg)`;
+                setTimeout(() => { isTurning = false; }, 350);
+            }
+        }
+
+        function moveBall() {
+            switch (ball_direction) {
+                case 'right':
+                    ball_x += ballSpeed;
+                    if (ball_x >= rect.right - 10) {
+                        ball_x = rect.right;
+                        ball_direction = 'down';
+                    }
+                    break;
+                case 'down':
+                    ball_y += ballSpeed;
+                    if (ball_y >= rect.bottom) {
+                        ball_y = rect.bottom - 2;
+                        ball_direction = 'left';
+                    }
+                    break;
+                case 'left':
+                    ball_x -= ballSpeed;
+                    if (ball_x <= rect.left + 5) {
+                        ball_x = rect.left - ballSize;
+                        ball_direction = 'up';
+                    }
+                    break;
+                case 'up':
+                    ball_y -= ballSpeed;
+                    if (ball_y <= rect.top - ballSize) {
+                        ball_y = rect.top - ballSize;
+                        ball_direction = 'right';
+                    }
+                    break;
+            }
+
+            const currentRotationSpeed = ballRotationSpeed * (ballSpeed / baseSpeed);
+            ball_rotation += currentRotationSpeed;
+            
+            ball.style.left = ball_x + 'px';
+            ball.style.top = ball_y + 'px';
+            ball.style.transform = `rotate(${ball_rotation}deg)`;
+        }
+
+        preloadAll(() => {
+            if (document.readyState === 'complete') {
+                init();
+            } else {
+                window.addEventListener('load', init);
+            }
+        });
     </script> 
 </body>
 </html>
