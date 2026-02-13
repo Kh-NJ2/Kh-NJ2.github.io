@@ -94,7 +94,7 @@
         .pixel-card:hover {
             border-color: #b77488;
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(183, 116, 136, 0.15);
+            box-shadow: 0 20px 20px rgba(183, 116, 136, 0.15);
         }
 
         .section-title {
@@ -180,16 +180,12 @@
             <h2>I'm a Computer Science student at AAST focused on finding patterns in complex data. I build models that predict, classify, and recommend, turning raw data into actionable insights. To make sure my models actually work in the real world, I use my AWS Cloud experience to build serverless pipelines that scale effortlessly.</h2>
             <div class="flex flex-col items-center gap-3 mt-6">
                 <div class="flex justify-center gap-3 flex-wrap">
-                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Data Science</span>
-                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Machine Learning</span>
-                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">Predictive Modeling</span>
-                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-xs font-bold text-[#8a5666]">AWS Cloud Engineering</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666] shadow">Data Science</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666] shadow">Machine Learning</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666] shadow">Predictive Modeling</span>
+                    <span class="bg-white/60 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666] shadow">AWS Cloud Engineering</span>
                     
                 </div>
-                <div class="flex justify-center gap-3 flex-wrap">
-                    <span class="bg-white/50 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666]">📍Egypt</span>
-                    <span class="bg-white/50 backdrop-blur-sm border border-[#b77488] px-4 py-1 rounded-full text-sm font-bold text-[#8a5666]">🎓 Expected 2026</span>
-                </div> 
             </div>
         </div>
     </div>
@@ -200,7 +196,10 @@
             <!-- Education Card -->
             <div class="pixel-card">
                 <h3 class="font-['VT323'] text-3xl text-[#b77488] mb-4">Education</h3>
-                <p class="font-bold text-gray-800 text-lg">B.Sc. in Computer Science</p>
+                <div class="flex justify-between items-start mb-1">
+                    <p class="font-bold text-gray-800 text-lg">B.Sc. in Computer Science</p>
+                    <span class="tag pr-2 pt-1 pb-1 shadow text-[#662c4c]/70">Expected 2026</span>
+                </div>
                 <p class="text-[#8a5666] mb-4">Arab Academy For Science And Technology</p>
                 <div class="border-t border-[#ffe0f0] pt-4">
                     <p class="text-xs font-bold text-[#b77488] uppercase tracking-wider mb-2">Relevant Coursework</p>
@@ -219,23 +218,23 @@
                 <h3 class="font-['VT323'] text-3xl text-[#b77488] mb-4">Tech Skills</h3>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Languages</p>
+                        <p class="text-[11px] font-bold text-[#b77488] uppercase mb-1">Languages</p>
                         <p class="text-xs text-gray-700">Python, Java, Kotlin, C, SQL</p>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">ML / AI</p>
+                        <p class="text-[11px] font-bold text-[#b77488] uppercase mb-1">ML / AI</p>
                         <p class="text-xs text-gray-700">TensorFlow, Scikit-learn, RAG</p>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Data/Libraries</p>
+                        <p class="text-[11px] font-bold text-[#b77488] uppercase mb-1">Data/Libraries</p>
                         <p class="text-xs text-gray-700">Pandas, NumPy, Matplotlib</p>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Cloud</p>
+                        <p class="text-[11px] font-bold text-[#b77488] uppercase mb-1">Cloud</p>
                         <p class="text-xs text-gray-700">AWS Lambda, S3, DynamoDB, API Gateway, EventBridge, CloudWatch</p>
                     </div>
                     <div>
-                        <p class="text-[10px] font-bold text-[#b77488] uppercase mb-1">Dev Tools</p>
+                        <p class="text-[11px] font-bold text-[#b77488] uppercase mb-1">Dev Tools</p>
                         <p class="text-xs text-gray-700">Linux, Git, VS Code, Jupyter</p>
                     </div>
                 </div>
