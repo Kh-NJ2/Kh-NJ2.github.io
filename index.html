@@ -41,7 +41,7 @@
         }
 
         .intro-box {
-            height: 450px;
+            height: fit-content;
             width: calc(100% - 200px);
             border: 4px solid #b77488;
             border-radius: 20px;
@@ -129,7 +129,6 @@
             text-transform: uppercase;
         }
 
-        /* --- Footer --- */
         .site-footer {
             padding: 4rem 1rem;
             background-color: #fef4f9;
@@ -158,7 +157,15 @@
         .link-github:hover { color: #000000; }
         .link-phone:hover { color: #0e6c6d;}
 
+        @media (max-width: 768px) {
+            .intro-box {
+                width: calc(100% - 100px);
+                margin: 50px 50px;
+                height: fit-content;
+            }
+        }
     </style>
+
 </head>
 <body>
 
@@ -416,15 +423,15 @@
         let lastBallBoost = 0;
         let lastJump = 0;
 
+        
         function init() {
-            rect = container.getBoundingClientRect();
+            updateDimensions();
 
-            const scrollY = window.scrollY;
             x = rect.left;
-            y = rect.top + scrollY - catSize + 1;
+            y = rect.top - catSize + 1;
             
             ball_x = rect.left + (catSize * 1.5);
-            ball_y = rect.top + scrollY - ballSize + 2;
+            ball_y = rect.top - ballSize + 2;
 
             cat.style.left = x + 'px';
             cat.style.top = y + 'px';
@@ -637,6 +644,51 @@
             ball.style.top = ball_y + 'px';
             ball.style.transform = `rotate(${ball_rotation}deg)`;
         }
+
+        function updateDimensions() {
+            const oldRect = rect;
+            const viewportRect = container.getBoundingClientRect();
+            const scrollY = window.scrollY;
+            
+            // absolute page coordinates instead of viewport-relative
+            rect = {
+                left: viewportRect.left,
+                right: viewportRect.right,
+                top: viewportRect.top + scrollY,
+                bottom: viewportRect.bottom + scrollY
+            };
+
+            // If not the first run
+            if (oldRect) {
+                // Fix Cat Position
+                x = Math.max(rect.left - catSize + 2, Math.min(x, rect.right - 2));
+                y = Math.max(rect.top - catSize + 2, Math.min(y, rect.bottom - 2));
+
+                // Fix Ball Position
+                ball_x = Math.max(rect.left - ballSize, Math.min(ball_x, rect.right));
+                ball_y = Math.max(rect.top - ballSize, Math.min(ball_y, rect.bottom));
+
+                snapToTrack();
+            }
+        }
+        
+        function snapToTrack() {
+            if (direction === 'right') y = rect.top - catSize + 1;
+            if (direction === 'down') x = rect.right - 2;
+            if (direction === 'left') y = rect.bottom - 2;
+            if (direction === 'up') x = rect.left - catSize + 2;
+
+            if (ball_direction === 'right') ball_y = rect.top - ballSize + 2;
+            if (ball_direction === 'down') ball_x = rect.right;
+            if (ball_direction === 'left') ball_y = rect.bottom - 2;
+            if (ball_direction === 'up') ball_x = rect.left - ballSize;
+        }
+
+
+        // Listen for window resizing
+        window.addEventListener('resize', updateDimensions);
+            
+            
 
         preloadAll(() => {
             if (document.readyState === 'complete') {
