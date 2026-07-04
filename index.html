@@ -85,7 +85,7 @@
         }
 
         .section-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 60px auto;
             padding: 0 20px;
         }
@@ -206,9 +206,9 @@
                 <h3 class="font-['VT323'] text-3xl text-[#b77488] mb-4">Education</h3>
                 <div class="flex justify-between items-start mb-1">
                     <p class="font-bold text-gray-800 text-lg">B.Sc. in Computer Science</p>
-                    <span class="tag pr-2 pt-1 pb-1 shadow text-[#662c4c]/70">Class of 2026</span>
+                    <span class="tag pr-2 pt-1 pb-1 shadow text-[#662c4c]/70"> 2026 </span>
                 </div>
-                <p class="text-[#8a5666] mb-4">Arab Academy For Science And Technology</p>
+                <p class="text-[#8a5666] mb-4">Arab Academy For Science, Technology, and Maritime Transport</p>
                 <div class="border-t border-[#ffe0f0] pt-4">
                     <p class="text-xs font-bold text-[#b77488] uppercase tracking-wider mb-2">Relevant Coursework</p>
                     <div class="flex flex-wrap gap-2">
@@ -254,6 +254,53 @@
         </div>
     </div>
 
+    <div class="section-container">
+        <h2 class="section-title">MemoriaHome</h2>
+            <!-- MemoriaHome -->
+            <div class="project-card group flex flex-col md:flex-row size-full border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                 <div class="relative w-full h-72 md:h-auto md:w-2/5 bg-[#b77488] flex items-center justify-center p-4 overflow-hidden shrink-0">
+        
+                    <span class="text-white text-6xl font-['VT323'] text-center transition-opacity duration-300 group-hover:opacity-0">
+                        MemoriaHome
+                    </span>
+
+                    <img src="imgs/memoriahome.png" 
+                        alt="Project Preview" 
+                        class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100">    
+                </div>
+
+
+                <div class="relative flex flex-col w-full md:w-3/5"> 
+                    <div class="p-6 flex-grow">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Face Recognition</span>
+                        <span class="tag">Vocal Distress Recognition</span>
+                        <span class="tag">Stutter Recognition</span>
+                    </div>
+                    <p class="text-s font-bold text-[#b77488] uppercase tracking-wider mt-5 mb-2">Tech Used</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="tag">InsightFace</span>
+                        <span class="tag">Yolov8n</span>
+                        <span class="tag">SpeechBrain</span>
+                        <span class="tag">Wav2vec</span>
+                        <span class="tag">Cloudflare R2</span>
+                        <span class="tag">Kinect SDK</span>
+                        <span class="tag">NestJS</span>
+                        <span class="tag">MQTT</span>
+                        <span class="tag">Android SensorManager</span>
+                        <span class="tag">Google Health Services</span>
+                    </div>
+                    <p class="text-gray-600 text-sm">MemoriaHome is a real-time dementia patient monitoring system designed to ease the burden on caregivers in both private homes and nursing facilities. Using a Microsoft Kinect v2 for visual and acoustic input and a Samsung Watch 7 for physiological data, the system runs InsightFace for facial recognition and tracking, Kinect native skeletal tracking & YOLOv8n for fall detection, and SpeechBrain combined with Wav2vec to detect vocal distress markers such as calls for help, elevated pitch, or stuttering. Caregivers receive real-time alerts through a unified dashboard, making it easier to stay aware of the patient's condition without constant supervision</p>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto">
+                        <a href="https://github.com/MemoriaHome" target="_blank" class="text-pink-500 font-bold text-sm hover:underline">View on Github →</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
     <!-- Projects Section -->
     <div class="section-container">
         <h2 class="section-title">Latest Projects</h2>
@@ -294,7 +341,7 @@
             </div>
 
             <!-- Walmart Sales Forecast -->
-            <div class="project-card flex flex-col">
+            <div class="project-card group flex flex-col">
                 <div class="relative h-32 bg-[#b77488] flex items-center justify-center p-4 overflow-hidden group">
         
                     <span class="text-white text-3xl font-['VT323'] text-center transition-opacity duration-300 group-hover:opacity-0">
@@ -319,7 +366,7 @@
             </div>
 
             <!-- Traffic Sign Recognition -->
-            <div class="project-card flex flex-col">
+            <div class="project-card group flex flex-col">
                 <div class="relative h-32 bg-[#b77488] flex items-center justify-center p-4 overflow-hidden group">
         
                     <span class="text-white text-3xl font-['VT323'] text-center transition-opacity duration-300 group-hover:opacity-0">
@@ -360,7 +407,7 @@
             </div>
 
             <!-- Loan Approval Prediction -->
-            <div class="project-card flex flex-col">
+            <div class="project-card group flex flex-col">
                 <div class="relative h-32 bg-[#b77488] flex items-center justify-center p-4 overflow-hidden group">
         
                     <span class="text-white text-3xl font-['VT323'] text-center transition-opacity duration-300 group-hover:opacity-0">
